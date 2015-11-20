@@ -2,7 +2,8 @@ var Sequelize = require("sequelize");
 
 // need to set this up for deployment
 // var orm = new Sequelize("lancealot", "root", "pass");
-var orm = new Sequelize('postgres://root:pass@localhost.com:5432/lancealot');
+// var orm = new Sequelize('postgres://root:pass@localhost.com:5432/lancealot');
+var orm = new Sequelize('postgres://localhost.com:5432/lancealot');
 
 var Freelancer = orm.define('Freelancer', {
   email: Sequelize.STRING,
@@ -20,6 +21,7 @@ var Job = orm.define('Job', {
   start: Sequelize.DATE,
   end: Sequelize.DATE,
   rate: Sequelize.INTEGER,
+  status: Sequelize.BOOLEAN,
   description: Sequelize.STRING(1234)
 });
 
