@@ -1,5 +1,6 @@
-var Job = require('./db/models/job');
-var Client = require('./db/models/client');
+var db = require('./db/database');
+var Client = db.Client;
+var Job = db.Job;
 
 exports.isLoggedIn = function(req, res) {
   return req.session ? !!req.session.user : false;
@@ -26,7 +27,6 @@ This function searches to see if the job that comes in from the request and eith
 record if it didn't already exist in the DB or updates the 'status' property of the job if the record already exists. 
 */
 exports.createOrUpdateJob = function(req, res, job) {
-
   if (job === null) {
     //create
     exports.createJobDoc(req, res);
@@ -34,7 +34,6 @@ exports.createOrUpdateJob = function(req, res, job) {
     //update
     exports.updateJobDoc(req, res);
   }
-
 };
 
 /*
@@ -42,24 +41,22 @@ Finds the client id that corresponds to the client name from the POST request bo
 Uses found client id to create a new Job record in the database. 
 */
 exports.createJobDoc = function(req, res) {
-  Client.find({name:req.body.client}).exec(function (err, client){
+  // figure out various sequelize built-in promise callbacks
+  // determine whether we need to send back status code along with redirect
+  Client.findOne({ name: req.body.client }).then(function(client) {
+    if (client) {
+      var newJob = new Job({
+        start: req.body.start,
+        end: req.body.end,
+        rate: req.body.rate,
+        status: req.body.status,
+        description: req.body.description
+      });
 
-    if(err) return res.send(500, err);
-
-    var newJob = new Job({
-      client: client[0]._id,
-      rate: req.body.rate,
-      start: req.body.start,
-      end: req.body.end,
-      status: req.body.status,
-      description: req.body.description
-    });
-
-    newJob.save(function (err, job) {
-      if (err) return res.send(500, err);
-      res.redirect('/jobs');
-    });
-
+      newJob.save().success(function() {
+        res.redirect('/jobs');
+      });
+    }
   });
 };
 
@@ -67,8 +64,15 @@ exports.createJobDoc = function(req, res) {
 Finds the Job record that matches the id in the request body and updates the status of the job. 
 */
 exports.updateJobDoc = function (req, res) {
-  Job.findOneAndUpdate({_id: req.body._id}, {status: req.body.status}, function (err, job) {
-    if (err) return res.send(500, err);
-    res.redirect('/');
+  Job.findOne({
+    where: {
+      _id: req.body._id
+    }
+  })
+  .then(function(job) {
+    if (job) {
+      job.status = req.body.status;
+      res.redirect('/');
+    }
   });
 }
