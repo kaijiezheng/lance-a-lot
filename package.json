@@ -44,7 +44,11 @@
     "mongoose-auto-increment": "5.0.1",
     "morgan": "1.6.1",
     "node-mongo-seeds": "2.2.7",
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
     "request": "2.65.0",
+    "sequelize": "^3.14.0",
+    "sequelize-cli": "^2.1.1",
     "supertest": "1.1.0",
     "underscore": "1.8.3"
   },
