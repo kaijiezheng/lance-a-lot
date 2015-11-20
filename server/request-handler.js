@@ -1,19 +1,19 @@
 var bcrypt = require('bcrypt-nodejs');
 var util = require('./utility');
-var mongoose = require('mongoose');
 var request = require('request');
+
 var db = require('./db/database');
-var Job = require('./db/models/job');
-var Client = require('./db/models/client');
-var request = require('request');
-var User = require('./db/models/user');
+var Freelancer = db.Freelancer;
+var Client = db.Client;
+var Job = db.Job;
+var Time = db.Time;
 
 /*
 fetchClients is called when /clients path receives get request
 Finds all clients in the database and responds with result of query
 */
-exports.fetchClients = function (req, res) {
-  Client.find({}).exec(function (err, clients) {
+exports.fetchClients = function(req, res) {
+  Client.findAll().then(function(clients) {
     res.send(200, clients);
   });
 };
@@ -27,14 +27,10 @@ exports.addClient = function (req, res) {
     address: req.body.address,
     phone: req.body.phone
   });
-  newClient.save(function (err, newClient) {
-    if (err) {
-      res.send(500, err);
-      console.log('error adding/saving client');
-    } else {
-      console.log('added new client: ', newClient);
-      res.send(200, newClient);
-    }
+
+  newClient.save().then(function (newClient) {
+    console.log('added new client: ', newClient);
+    res.send(200, newClient);
   });
 };
 
@@ -44,15 +40,9 @@ Finds all jobs in the database, replaces client_id with an object that include c
 Responds with result of query
 */
 exports.fetchJobs = function (req, res) {
-  Job.find({})
-     .populate('client', 'name')
-     .exec(function (err, jobs) {
-       if(err) {
-        res.send(500, err);
-       } else {
-        res.send(jobs);
-       }
-     });
+  Job.findAll().then(function(jobs) {
+    res.send(jobs)
+  });
 };
 
 /*
@@ -62,12 +52,9 @@ exports.addJob = function (req, res) {
   //call createJobDoc first to find client id to use to create job document
   console.log('req body in addJob: ', req.body);
   //check if id already exists
-  Job.findById(req.body._id, function (err, job) {
-    if (err) {
-      console.error("error");
-    } else {
-      util.createOrUpdateJob(req, res, job);
-    }
+
+  Job.findById(req.body._id).then(function(job) {
+    util.createOrUpdateJob(req, res, job);
   });
 };
 
@@ -115,12 +102,8 @@ exports.signupUser = function (req, res) {
           password: password
         });
 
-        newUser.save(function (err, newUser) {
-          if (err) {
-            return console.error('Saving new user failed:', err);
-          } else {
-            util.createSession(req, res, newUser);
-          }
+        newUser.save().success(function () {
+          util.createSession(req, res, newUser);
         });
       } else {
         console.log('Account already exists');
