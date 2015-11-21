@@ -1,67 +1,67 @@
-var Sequelize = require("sequelize");
-
 // need to set this up for deployment
-// var orm = new Sequelize("lancealot", "root", "pass");
-// var orm = new Sequelize('postgres://root:pass@localhost.com:5432/lancealot');
-var orm = new Sequelize('postgres://localhost.com:5432/lancealot');
-
-var Freelancer = orm.define('Freelancer', {
-  email: Sequelize.STRING,
-  password: Sequelize.STRING,
-  name: Sequelize.STRING
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host: 'localhost',
+    user: 'root',
+    password: 'pass',
+    database: 'lancealot',
+    charset: 'utf8'
+  }
 });
 
-var Client = orm.define('Client', {
-  name: Sequelize.STRING,
-  address: Sequelize.STRING,
-  phone: Sequelize.STRING
+var bookshelf = require('bookshelf')(knex);
+bookshelf.plugin('registry');
+
+bookshelf.knex.schema.hasTable('freelancers').then(function(exists) {
+  if (!exists) {
+    bookshelf.knex.schema.createTable('freelancers', function (freelancer) {
+      freelancer.increments('id').primary();
+      freelancer.string('email', 255).unique();
+      freelancer.string('password', 255);
+      freelancer.timestamps();
+    }).then(function (table) {
+      console.log('Created Freelancer Table', table);
+    });
+  } else {
+    console.log('Freelancer Table Already Exists');
+  }
 });
 
-var Job = orm.define('Job', {
-  start: Sequelize.DATE,
-  end: Sequelize.DATE,
-  rate: Sequelize.INTEGER,
-  status: Sequelize.BOOLEAN,
-  description: Sequelize.STRING(1234)
+bookshelf.knex.schema.hasTable('clients').then(function(exists) {
+  if (!exists) {
+    bookshelf.knex.schema.createTable('clients', function (client) {
+      client.increments('id').primary();
+      client.string('name', 255).unique();
+      client.string('address', 255);
+      client.string('phone');
+      client.timestamps();
+    }).then(function (table) {
+      console.log('Created Client Table', table);
+    });
+  } else {
+    console.log('Client Table Already Exists');
+  }
 });
 
-var Time = orm.define('Time', {
-  start: Sequelize.DATE,
-  end: Sequelize.DATE
+bookshelf.knex.schema.hasTable('jobs').then(function(exists) {
+  if (!exists) {
+    bookshelf.knex.schema.createTable('jobs', function (job) {
+      job.increments('id').primary();
+      job.date('start', 255); // also datetime and time
+      job.date('end', 255);
+      job.decimal('rate');
+      job.boolean('status');
+      job.string('description');
+      job.integer('freelancer_id').unsigned().references('freelancers.id');
+      job.integer('client_id').unsigned().references('clients.id');
+      job.timestamps(); // creates both created_at and updated_at
+    }).then(function (table) {
+      console.log('Created Job Table', table);
+    });
+  } else {
+    console.log('Job Table Already Exists');
+  }
 });
 
-Freelancer.hasMany(Job);
-Client.hasMany(Job);
-Job.hasMany(Time);
-
-Freelancer.sync({ force: true });
-Client.sync({ force: true });
-Job.sync({ force: true });
-Time.sync({ force: true });
-
-exports.Freelancer = Freelancer;
-exports.Client = Client;
-exports.Job = Job;
-exports.Time = Time;
-
-// // Use cases
-// var newFL = Freelancer.build({
-//   email: "aol@aol.com",
-//   name: "Fossil",
-//   password: "password"
-// });
-
-// newFL.save().success(function() {
-//   // callback
-
-// });
-
-// Freelancer.findAll({ where: { name: "Fossil" } }).success(function(flers) {
-//   // callback
-// });
-
-// Freelancer.findOrCreate({
-//   where: { name: "Elon", email: "elon@tesla.com", password: "complicated" }
-// }).then(function(fler) {
-//   // callback
-// });
+module.exports = bookshelf;
