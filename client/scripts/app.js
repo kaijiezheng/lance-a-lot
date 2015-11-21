@@ -55,4 +55,9 @@ window.Lancealot = Backbone.View.extend({
     this.router.navigate('/addjob', { trigger: true });
   }
 
+  // renderTimesView: function(e) {
+  //   e && e.preventDefault();
+  //   this.router.navigate('/times', { trigger: true });
+  // }
+
 });
