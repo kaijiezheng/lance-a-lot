@@ -1,10 +1,10 @@
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var handle = require('./request-handler.js');
 var session = require('express-session');
 var util = require('./utility');
+var app = express();
 
 app.all("/*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -32,21 +32,23 @@ app.get('/', util.checkUser, renderIndex);
 app.get('/clients', handle.fetchClients);
 app.post('/clients', handle.addClient);
 
-app.get('/addclient', renderIndex);
-app.get('/add', renderIndex);
-
 app.get('/jobs', handle.fetchJobs);
 app.post('/jobs', handle.addJob);
 
-app.get('/login', loginUserForm);
+app.get('/login', util.renderLogin);
 app.post('/login', handle.loginUser);
 
-app.get('/signup', signupUserForm);
+app.get('/signup', util.renderSignup);
 app.post('/signup', handle.signupUser);
 
 app.get('/logout', function (req, res) {
-  req.session.destroy(function () {
-    res.redirect('/login');
+  req.session.destroy(function (error) {
+    if (error) {
+      console.log('Error in destroying session');
+    } else {
+      console.log('Destroyed session');
+      res.redirect('/login');
+    }
   });
 });
 
@@ -59,29 +61,19 @@ app.use(function (error, req, res, next) {
   res.send(500, {error: error.message});
 });
 
+app.get('/*', renderIndex);
 
 // Handler functions for template rendering
 function renderIndex (req, res) {
   res.render('index');
-  console.log("IN RENDERINDEX")
 };
 
-function signupUserForm (req, res) {
-  res.render('signup');
-};
-
-function splash (req, res, next) {
-  res.render('splash');
-  console.log("IN SPLASH")
-  next();
-};
-
-function loginUserForm (req, res) {
-  res.render('login');
-};
+// function splash (req, res, next) {
+//   res.render('splash');
+//   next();
+// };
 
 var port = process.env.PORT || 3000;
 
 app.listen(port);
-
-
+console.log('Listening on port', port);
