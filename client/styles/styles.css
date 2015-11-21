@@ -109,3 +109,9 @@ label {
 #no_client {
   font-size: 15px;
 }
+
+/****** GRAPH ******/
+.bar {
+  color: teal;
+  border: 1px solid black;
+}
