@@ -10,7 +10,8 @@
       </ul>
     </nav>
   </div>
-  <div id='container'></div>
+  <div id='container'>
+  </div>
 </script>
 
 <script id='home' type='text/x-handlebars-template'>
@@ -70,6 +71,7 @@
 </script>
 
 <script id='addClient' type='text/x-handlebars-template'>
+  <div id='bargraph'></div>
   <form class="form-group" id="addClient">
     <label>Name:</label>
       <input class="form-control" id="name" type="text"/><br/>
@@ -85,6 +87,10 @@
     <td class="clientCells">{{name}}</td>
     <td class="clientCells">{{address}}</td>
     <td class="clientCells">{{phone}}</td>
+</script>
+
+<script id='timeGraph' type='text/x-handlebars-template'>
+  <div id='bargraph'></div>
 </script>
 
 <script>
