@@ -2,12 +2,8 @@ var bcrypt = require('bcrypt-nodejs');
 var util = require('./utility');
 var request = require('request');
 
-// var db = require('./db/database');
-// var Freelancer = db.Freelancer;
-// var Client = db.Client;
-// var Job = db.Job;
-// var Time = db.Time;
 var Freelancer = require('./db/models/freelancer');
+var Freelancers = require('./db/collections/freelancers');
 var Client = require('./db/models/client');
 var Job = require('./db/models/job');
 // var Time = require('./models/time');
@@ -157,14 +153,15 @@ exports.loginUser = function (req, res) {
   .fetch()
   .then(function(freelancer) {
     if (freelancer) {
-      // change to compare bcrypt
-      if (freelancer.get('password') === password) {
-        console.log('Passwords match');
-        util.createSession(req, res, freelancer);
-      } else {
-        console.log('Wrong password');
-        res.redirect('/login');
-      }
+      freelancer.comparePassword(password, function(match) {
+        if (match) {
+          console.log('Passwords match');
+          util.createSession(req, res, freelancer);
+        } else {
+          console.log('Wrong password');
+          res.redirect('/login');
+        }
+      });
     } else {
       console.log('Could not find account');
       res.redirect('/signup');
@@ -194,18 +191,24 @@ exports.signupUser = function(req, res) {
   .fetch()
   .then(function(freelancer) {
     if (!freelancer) {
-      new Freelancer({
-        email: email,
-        password: password
-      })
-      .save()
-      .then(function(freelancer) {
-        console.log('Saved freelancer successfully');
-        util.createSession(req, res, freelancer);
-      })
-      .catch(function(err) {
-        console.log('Error in saving freelancer', err.message);
-        res.redirect('/signup');
+      bcrypt.hash(this.get('password'), null, null, function(err, hash) {
+        if (err) {
+            throw new Error(err);
+        } else {
+          new Freelancer({
+            email: email,
+            password: hash
+          })
+          .save()
+          .then(function(freelancer) {
+            console.log('Saved freelancer successfully');
+            util.createSession(req, res, freelancer);
+          })
+          .catch(function(err) {
+            console.log('Error in saving freelancer', err.message);
+            res.redirect('/signup');
+          });
+        }
       });
     } else {
       console.log('Freelancer already exists');
