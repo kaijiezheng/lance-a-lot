@@ -52,7 +52,7 @@ window.Lancealot = Backbone.View.extend({
 
   renderAddView: function(e) {
     e && e.preventDefault();
-    this.router.navigate('/add', { trigger: true });
+    this.router.navigate('/addjob', { trigger: true });
   }
 
 });
