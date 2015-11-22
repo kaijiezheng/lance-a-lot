@@ -19,8 +19,8 @@ Navbar
 }
 
 .navbar .navbar-nav>li {
-  padding: 5px 30px;
-  margin: auto 30px;
+  padding: 5px 15px;
+  margin: auto 15px;
 }
 
 .navbar-default .navbar-nav li a {
@@ -126,3 +126,4 @@ label {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
