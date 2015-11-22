@@ -12,17 +12,14 @@ Lancealot.Jobs = Backbone.Collection.extend({
   */
    
   searchByClient: function(value){
-
     if (value == "") return this;
  
-    var pattern = new RegExp(value,"gi");
+    var pattern = new RegExp(value, "i");
 
-    var filtered = (this.filter(function (job) {
+    var filtered = _.filter(this.models, function (job) {
       return pattern.test(job.get('client').name);
-    }));
+    });
 
     return new Lancealot.Jobs(filtered);
-
   }
-
 });
