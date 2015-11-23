@@ -1,4 +1,5 @@
 var bookshelf = require('../database');
+var bcrypt = require('bcrypt-nodejs');
 var Job = require('./job');
 
 var Freelancer = bookshelf.Model.extend({
@@ -6,26 +7,18 @@ var Freelancer = bookshelf.Model.extend({
   hasTimestamps: true,
   jobs: function() {
     return this.hasMany('Job');
+  },
+  comparePassword: function(password, callback) {
+    console.log(this.get('password'));
+    console.log(password);
+    bcrypt.compare(password, this.get('password'), function(err, match) {
+      if (err) {
+        throw new Error(err);
+      } else {
+        callback(match);
+      }
+    });
   }
-    // initialize: function(){
-    //   this.on('creating', this.hashPassword);
-    // },
-    // freelancer.increments('id').primary();
-    //   freelancer.string('email', 255);
-    //   freelancer.string('password', 255);
-    //   freelancer.timestamps();
-    // comparePassword: function(attemptedPassword, callback) {
-    //   bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
-    //     callback(isMatch);
-    //   });
-    // },
-    // hashPassword: function(){
-    //   var cipher = Promise.promisify(bcrypt.hash);
-    //   return cipher(this.get('password'), null, null).bind(this)
-    //     .then(function(hash) {
-    //       this.set('password', hash);
-    //     });
-    // }
 });
 
 bookshelf.model('Freelancer', Freelancer);
