@@ -7,24 +7,25 @@ Lancealot.TimesView = Backbone.View.extend({
   // el: '#bargraph',
   chart: null,
 
+  margin: {top: 20, right: 10, bottom: 20, left: 10},
+
   chartOptions: {
-    width: 900,
-    height: 450,
-    margin: 50
+    width: 940,
+    height: 560
   },
 
   initialize: function() {
     console.log('inside initialize')
     //this.collection.on('change', this.render, this);
-    
+   
     //initialize SVG graph
     this.chart = d3.select('#bargraph')
               .append("svg")
               .attr("class", "chart")
-              .attr("width", this.chartOptions.width)
-              .attr("height", this.chartOptions.height)
+              .attr("width", this.chartOptions.width + this.margin.left + this.margin.right)
+              .attr("height", this.chartOptions.height + this.margin.top + this.margin.bottom)
               .append("g")
-              .attr("transform", "translate(0, -40)");
+              .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
               //render?
     //this.collection.fetch();
     this.render();
@@ -33,7 +34,10 @@ Lancealot.TimesView = Backbone.View.extend({
   render: function() {
     console.log('inside time render')
     var timeData = 
-    [{"start":"7:11 AM","end":"8:45 AM","date":"11/8/2015", "total": "4.5"},
+    [ {"start":"6:57 AM","end":"4:43 PM","date":"11/7/2015", "total": "1"},
+    {"start":"8:05 PM","end":"3:39 PM","date":"11/7/2015", "total": "2.5"},
+    {"start":"11:15 AM","end":"3:17 AM","date":"11/7/2015", "total": "6.5"},
+    {"start":"7:11 AM","end":"8:45 AM","date":"11/8/2015", "total": "4.5"},
     {"start":"9:05 PM","end":"11:54 AM","date":"11/11/2015", "total": "2.5"},
     {"start":"7:27 PM","end":"7:57 AM","date":"11/9/2015", "total": "1.25"},
     {"start":"7:56 PM","end":"1:35 AM","date":"11/11/2015", "total": "3.05"},
@@ -80,7 +84,7 @@ Lancealot.TimesView = Backbone.View.extend({
      //     .rangeRoundBands([0, this.chartOptions.width], .5);
      var x = d3.time.scale()
          .domain([new Date(graphData[0].date), d3.time.day.offset(new Date(graphData[graphData.length - 1].date), 1)])
-         .rangeRound([0, this.chartOptions.width - this.chartOptions.margin * 2]);
+         .rangeRound([0, this.chartOptions.width]);
 
      var y = d3.scale.linear()
          .domain([0, 20/*d3.max(timeData, function(d) { return d.total; })*/])
@@ -91,13 +95,11 @@ Lancealot.TimesView = Backbone.View.extend({
          .orient("bottom")
          .ticks(d3.time.days, 1)
          .tickFormat(d3.time.format('%A %b %d'))
-         .tickSize(0)
          .tickPadding(6);
 
      var yAxis = d3.svg.axis()
          .scale(y)
          .orient("left")
-         .ticks(10)
          .tickPadding(8);
 
     var that = this;
@@ -107,20 +109,20 @@ Lancealot.TimesView = Backbone.View.extend({
       .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", function(d, i) { return (i + 1) * (that.chartOptions.width / 7) })
+      .attr("x", function(d, i) { return (i * 135) + 10 })
       .attr("y", function(d) { return y(d.total) })
-      .attr("width", /*x.rangeBand()*/(this.chartOptions.width / 7) - 70)
+      .attr("width", /*x.rangeBand()*/85)
       .attr("height", /*total time*/ function(d) { return that.chartOptions.height - y(d.total) })
       .attr("fill", "teal");
 
     this.chart.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate("+ (this.chartOptions.margin * 2) + ", " + this.chartOptions.height + ")")
+      .attr("transform", "translate(55," + this.chartOptions.height + ")")
       .call(xAxis);
 
     this.chart.append("g")
       .attr("class", "y axis")
-      .attr("transform", "translate(" + this.chartOptions.margin + ", 0)")
+      .attr("transform", "translate(" + this.margin.left + ", 0)")
       .call(yAxis);
     
     // this.$el.html(this.template())

@@ -31,11 +31,8 @@ Lancealot.Router = Backbone.Router.extend({
   },
 
   addJob: function(){
-    console.log('initialize timesView')
-    var timesView = new Lancealot.TimesView(/*{ collection: times }*/);
-    this.swapView(timesView);
-    // var clients = new Lancealot.Clients();
-    // this.swapView(new Lancealot.JobEntryView({collection: clients}));
+    var clients = new Lancealot.Clients();
+    this.swapView(new Lancealot.JobEntryView({collection: clients}));
   },
 
   addClient: function(){
