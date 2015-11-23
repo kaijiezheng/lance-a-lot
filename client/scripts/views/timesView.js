@@ -4,7 +4,7 @@
 For templates, look at client/views/backbone_templates.
 */
 Lancealot.TimesView = Backbone.View.extend({
-  // el: '#bargraph',
+  id: 'bargraph',
   chart: null,
 
   margin: {top: 20, right: 10, bottom: 20, left: 10},
@@ -19,7 +19,7 @@ Lancealot.TimesView = Backbone.View.extend({
     //this.collection.on('change', this.render, this);
    
     //initialize SVG graph
-    this.chart = d3.select('#bargraph')
+    this.chart = d3.select(/*'#bargraph'*/ this.el)
               .append("svg")
               .attr("class", "chart")
               .attr("width", this.chartOptions.width + this.margin.left + this.margin.right)
@@ -50,7 +50,7 @@ Lancealot.TimesView = Backbone.View.extend({
     {"start":"1:47 AM","end":"12:48 PM","date":"11/12/2015", "total": "4.5"},
     {"start":"9:40 PM","end":"4:41 PM","date":"11/9/2015", "total": "4.5"},
     {"start":"10:34 PM","end":"3:01 AM","date":"11/13/2015", "total": "4.5"},
-    {"start":"11:28 AM","end":"3:06 PM","date":"11/9/2015", "total": "1.25"},
+    {"start":"11:28 AM","end":"3:06 PM","date":"11/9/2015", "total": "9.25"},
     {"start":"5:55 AM","end":"7:31 PM","date":"11/12/2015", "total": "4.5"},
     {"start":"11:00 AM","end":"5:06 AM","date":"11/13/2015", "total": "4.5"},
     {"start":"6:32 AM","end":"10:05 AM","date":"11/12/2015", "total": "1.45"},
@@ -87,7 +87,7 @@ Lancealot.TimesView = Backbone.View.extend({
          .rangeRound([0, this.chartOptions.width]);
 
      var y = d3.scale.linear()
-         .domain([0, 20/*d3.max(timeData, function(d) { return d.total; })*/])
+         .domain([0,24/*d3.max(timeData, function(d) { return d.total; })*/])
          .range([this.chartOptions.height, 0]);
 
      var xAxis = d3.svg.axis()
@@ -100,6 +100,7 @@ Lancealot.TimesView = Backbone.View.extend({
      var yAxis = d3.svg.axis()
          .scale(y)
          .orient("left")
+         .ticks(10)
          .tickPadding(8);
 
     var that = this;
@@ -125,6 +126,22 @@ Lancealot.TimesView = Backbone.View.extend({
       .attr("transform", "translate(" + this.margin.left + ", 0)")
       .call(yAxis);
     
+    // d3.select("svg").selectAll("text")
+    //          .data(graphData)
+    //          .enter()
+    //          .append("text")
+    //          .text(function(d) {
+    //             return d.total;
+    //          })
+    //          .attr("x", function(d, i) {
+    //             return i * (that.chartOptions.width / graphData.length) + 5;
+    //          })
+    //          .attr("y", function(d) {
+    //             return that.chartOptions.height - (d.total * 4) + 15;
+    //          })
+    //          .attr("font-family", "sans-serif")
+    //          .attr("font-size", "11px")
+    //          .attr("fill", "black");
     // this.$el.html(this.template())
     return this.$el.html;
     // return this;
