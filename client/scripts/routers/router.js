@@ -47,10 +47,8 @@ Lancealot.Router = Backbone.Router.extend({
   },
 
   showTimes: function() {
-    console.log('showtimes')
     var times = new Lancealot.Times();
     var timesView = new Lancealot.TimesView(/*{ collection: times }*/);
-    // this.swapView(timesView);
     $("#container").append(timesView.el)
   }
 });
