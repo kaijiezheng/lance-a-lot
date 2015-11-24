@@ -6,7 +6,7 @@ var Freelancer = require('./db/models/freelancer');
 var Freelancers = require('./db/collections/freelancers');
 var Client = require('./db/models/client');
 var Job = require('./db/models/job');
-// var Time = require('./models/time');
+var Time = require('./db/models/time');
 
 /*
 fetchClients is called when /clients path receives get request
@@ -71,11 +71,9 @@ exports.fetchJobs = function (req, res) {
   })
   .then(function(jobs) {
     console.log('Fetched all jobs successfully');
-    console.log(jobs);
     res.status(200).send(jobs);
   })
   .catch(function(err) {
-    console.log('blahblah');
     console.log('Error in retrieving jobs:', err.message);
   });
 };
@@ -136,6 +134,59 @@ exports.addJob = function (req, res) {
   .catch(function(err) {
     console.log('Error in fetching client id to add job', err.message);
     res.redirect('/addjob');
+  });
+};
+
+// Add documentation
+exports.fetchTimes = function (req, res) {
+  new Job({
+    freelancer_id: req.session.user.id
+  })
+  .fetchAll({
+    withRelated: [
+      'time'
+    ]
+  })
+  .then(function(jobs) {
+    console.log('Fetched all times successfully');
+    res.status(200).send(jobs);
+  })
+  .catch(function(err) {
+    console.log('Error in retrieving times:', err.message);
+  });
+};
+
+// Add documentation
+exports.addTime = function (req, res) {
+  new Time({
+    start: req.body.start,
+    job_id: req.body.job_id
+  })
+  .fetch()
+  .then(function(time) {
+    if (time) {
+      time.stop = req.body.stop;
+      console.log('Updated stop time successfully');
+      res.status(200).send(time);
+    } else {
+      new Time({
+        start: req.body.start,
+        job_id: req.body.job_id
+      })
+      .save()
+      .then(function(time) {
+        console.log('Saved time successfully');
+        res.status(200).send(time);
+      })
+      .catch(function(err) {
+        console.log('Error in saving new start time:', err.message);
+        res.redirect('/');
+      });
+    }
+  })
+  .catch(function(err) {
+    console.log('Error in fetching time to add or update time', err.message);
+    res.redirect('/');
   });
 };
 
