@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Lance-a-lot</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/semantic/dist/semantic.css">
     <link rel="stylesheet" href="styles/styles.css">
     <!-- dependencies -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -11,25 +12,27 @@
     <script src="lib/backbone/backbone.js"></script>
     <script src="lib/handlebars/handlebars.js"></script>
     <script src="lib/d3/d3.js"></script>
+    <script src="lib/semantic/dist/semantic.js"></script>
   </head>
 
   <body>
     <div id="container">
-      <div class="container">
-        <form class="form-group" action="/login" method="post">
-            <div>
+      <div class="container">        
+        <form class="ui form" action="/login" method="post">
+            <div class="field">
               <label for="email">Email:</label>
-              <input class="form-control" id="email" type="text" name="email">
+              <input class="ui input" id="email" type="text" name="email" placeholder="freelancer@lancealot.com">
             </div>
-            <div>
+            <div class="field">
               <br>
               <label for="password">Password:</label>
-              <input class="form-control"id="password" type="password" name="password">
+              <input class="ui input"id="password" type="password" name="password" placeholder="password">
             </div>
             <div>
               <br>
-              <input class="btn btn-default" type="submit" value="Login">
+              <input class="ui large button" type="submit" value="Login">
             </div>
+            <div class="inline field"></div>
         </form>
 
         <p>
@@ -37,5 +40,28 @@
         <p>
       </div>
     </div>
+
+    <script>
+    // Form Validation
+    $('.ui.form')
+      .form({
+        fields: {
+          email: {
+            rules: [{
+              type: 'empty',
+              prompt: 'Please enter your email address'
+            }]
+          },
+          password: {
+            rules: [{
+                type   : 'empty',
+                prompt : 'Please enter a password'
+              }]
+          }
+        },
+        inline: true,
+        keyboardShortcuts: true
+      });
+    </script>
   </body>
 </html>
