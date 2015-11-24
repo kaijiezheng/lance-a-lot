@@ -64,4 +64,20 @@ bookshelf.knex.schema.hasTable('jobs').then(function(exists) {
   }
 });
 
+bookshelf.knex.schema.hasTable('times').then(function(exists) {
+  if (!exists) {
+    bookshelf.knex.schema.createTable('times', function (time) {
+      time.increments('id').primary();
+      time.dateTime('start', 255);
+      time.dateTime('stop', 255);
+      time.integer('job_id').unsigned().references('jobs.id');
+      time.timestamps();
+    }).then(function (table) {
+      console.log('Created Time Table', table);
+    });
+  } else {
+    console.log('Time Table Already Exists');
+  }
+});
+
 module.exports = bookshelf;
