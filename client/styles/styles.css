@@ -2,32 +2,6 @@
 Navbar
 */
 
-.navbar {
-  background-color: #85e0e0;
-  font-weight: 700;
-  font-size: 20px;
-  font-family: 'Quicksand', sans-serif;
-  text-align: center;
-  margin-top: 20px;
-  border: none;
-}
-
-.navbar .navbar-nav {
-  display: inline-block;
-  float: none;
-  vertical-align: center;
-}
-
-.navbar .navbar-nav>li {
-  padding: 5px 15px;
-  margin: auto 15px;
-}
-
-.navbar-default .navbar-nav li a {
-  text-decoration: none;
-  color: white;
-}
-
 .tagline {
   font-family: 'Quicksand', sans-serif;
   font-size: 20px;
@@ -37,6 +11,19 @@ Navbar
   vertical-align: center;
 }
 
+#topbar {
+  max-height: 100px;
+  margin-bottom: 0px;
+}
+
+#sidebar {
+  margin-top: 80px;
+  padding-top: 50px;
+}
+
+a {
+  font-size: 1.3em;
+}
 /*
 General page layout
 */
