@@ -35,6 +35,9 @@ app.post('/clients', handle.addClient);
 app.get('/jobs', handle.fetchJobs);
 app.post('/jobs', handle.addJob);
 
+app.get('/times', handle.fetchTimes);
+app.post('/times', handle.addTime);
+
 app.get('/login', util.renderLogin);
 app.post('/login', handle.loginUser);
 
