@@ -25,10 +25,7 @@
     "jquery": "~2.1.4",
     "backbone": "~1.2.3",
     "handlebars": "~4.0.4",
-<<<<<<< HEAD
-    "d3": "~3.5.9"
-=======
+    "d3": "~3.5.9",
     "semantic": "semantic-ui#~2.1.6"
->>>>>>> (feat) added login and signup form validation
   }
 }
