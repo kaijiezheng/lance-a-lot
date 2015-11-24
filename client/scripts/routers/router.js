@@ -16,7 +16,8 @@ Lancealot.Router = Backbone.Router.extend({
     '': 'index',
     'addjob': 'addJob',
     'addclient': 'addClient',
-    'clients': 'showClients'
+    'clients': 'showClients',
+    'times': 'showTimes'
   },
 
   swapView: function(view){
@@ -27,6 +28,7 @@ Lancealot.Router = Backbone.Router.extend({
     var jobs = new Lancealot.Jobs();
     var appView = new Lancealot.AppView({ collection: jobs });
     this.swapView(appView);
+    $("#bargraph").hide()
   },
 
   addJob: function(){
@@ -42,5 +44,11 @@ Lancealot.Router = Backbone.Router.extend({
     var clients = new Lancealot.Clients();
     var clientsView = new Lancealot.ClientsListView({ collection: clients });
     this.swapView(clientsView);
+  },
+
+  showTimes: function() {
+    var times = new Lancealot.Times();
+    var timesView = new Lancealot.TimesView(/*{ collection: times }*/);
+    $("#container").append(timesView.el)
   }
 });

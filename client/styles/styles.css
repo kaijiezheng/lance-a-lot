@@ -19,8 +19,8 @@ Navbar
 }
 
 .navbar .navbar-nav>li {
-  padding: 5px 30px;
-  margin: auto 30px;
+  padding: 5px 15px;
+  margin: auto 15px;
 }
 
 .navbar-default .navbar-nav li a {
@@ -109,3 +109,26 @@ label {
 #no_client {
   font-size: 15px;
 }
+
+/****** GRAPH ******/
+.bar {
+  color: teal;
+  border: 2px solid black;
+}
+
+.chart {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+svg {
+  padding: 0px 15px 20px 15px;
+}
+
