@@ -1,5 +1,11 @@
 <script id='layout' type='text/x-handlebars-template'>
-  <div id="sidebar" class='ui left fixed violet vertical inverted menu'>
+  <div id="sidebar" class='ui left fixed green vertical inverted menu'>
+      <div class="header item">
+        <br>
+        <h1 id="brand"> Lance-a-lot </h1>
+        <span class="tagline">A freelancer's companion</span>
+      </div>
+      <br>
       <a href='/' class='item'>View Jobs</a>
       <a href='/addjob' class='item'>Add Job</a>
       <a href='/clients' class='item'>View Clients</a>
@@ -45,15 +51,15 @@
 
 <script id='add' type='text/x-handlebars-template'>
   <form class="ui form" id="addJob">
+  <div class="field">
     <label>Client:</label>
-      <select class="ui input" id="client">
+      <select class="ui selection dropdown" id="client">
         {{#each clients }}
           <option value="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
         {{/each}}
       </select>
       <a href="/addclient" id="no_client">Don't see your client? Create a new client here.</a>
-      <br/>
-      <br/>
+    </div>
       <div class="field">
       <label>Description:</label>
         <input class="ui input" id="description" type="text"/>

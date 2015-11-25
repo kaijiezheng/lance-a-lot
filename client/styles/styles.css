@@ -4,11 +4,12 @@ Navbar
 
 .tagline {
   font-family: 'Quicksand', sans-serif;
-  font-size: 20px;
+  font-size: 12px;
   position: relative;
-  float: left;
-  margin-left: 20px;
+/*  float: left;*/
+  margin-left: 10px;
   vertical-align: center;
+  text-align: center;
 }
 
 #topbar {
@@ -17,26 +18,29 @@ Navbar
 }
 
 #sidebar {
-  margin-top: 80px;
-  padding-top: 50px;
+  /*margin-top: 80px;*/
+  /*padding-top: 20px;*/
 }
 
-a {
-  font-size: 1.3em;
+.ui.inverted.menu .item {
+  font-size: 1.2em;
+  text-align: left;
 }
 /*
 General page layout
 */
 
-h1 {
+#brand {
   font-family: 'Pacifico', cursive;
-  font-size: 40px;
-  padding-left: 20px;
+  font-size: 37px;
+  text-align: center;
+  margin: 0px;
+  /*padding-left: 20px;*/
 }
 
-div {
+/*div {
   text-align: center !important;
-}
+}*/
 
 .header {
   margin-bottom: 30px;
@@ -44,16 +48,34 @@ div {
 
 #container {
   text-align: center;
-  width: 100%;
+  width: 80%;
+  margin: 5% 15%;
 }
 
-.col-md-8 {
+/*.col-md-8 {
   width: 100%;
-}
+}*/
 
 /*
 Forms, inputs, and tables
 */
+#login, #signup {
+  max-width: 100%;
+  margin: 5% auto;
+}
+
+.ui.piled.segment {
+  padding: 20px 20px;
+}
+
+.ui.form {
+  margin: 20px 30px;
+  padding: 5px;
+}
+
+.ui.form .field > label {
+  font-size: 1.2em;
+}
 
 #clientSearch {
   width: 40%;
