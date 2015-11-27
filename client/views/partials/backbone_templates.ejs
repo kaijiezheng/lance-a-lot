@@ -28,6 +28,9 @@
       <th>Rate</th>
       <th>Start</th>
       <th>End</th>
+      <th>Start/Stop</th>
+      <th>Current Timer</th>
+      <th>Total Labor Time</h>
       <th>Status</th>
     </thead>
 </script>
@@ -47,6 +50,9 @@
     <td>${{rate}}</td>
     <td>{{formattedStart}}</td>
     <td>{{formattedEnd}}</td>
+    <td><button class="start">Start</button></td>
+    <td class='timer'>{{currentTimer}}</td>
+    <td class='totalTime'>{{laborTime}}</td>
     <td><input type="checkbox" {{checked}}></td>
 </script>
 
