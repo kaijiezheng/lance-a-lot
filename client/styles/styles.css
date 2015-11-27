@@ -89,7 +89,7 @@ Forms, inputs, and tables
 .table {
   float: none !important;
   margin: 20px auto !important;
-  width: 50%;
+  width: 70%;
 }
 
 .table th {
@@ -146,3 +146,6 @@ svg {
   padding: 0px 15px 20px 15px;
 }
 
+.stop {
+  content: "Stop";
+}
