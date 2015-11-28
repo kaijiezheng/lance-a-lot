@@ -15,11 +15,11 @@ window.Lancealot = Backbone.View.extend({
   template: Templates['layout'],
 
   events: {
-    'click li a.index':  'renderIndexView',
-    'click li a.logout': 'renderAddView',
-    'click li a.clients': 'renderClientsView',
-    'click li a.addClient': 'renderClientEntryView',
-    'click li a #time': 'renderTimesView',
+    'click a.index':  'renderIndexView',
+    'click a.logout': 'renderAddView',
+    'click a.clients': 'renderClientsView',
+    'click a.addClient': 'renderClientEntryView',
+    'click a.productivity': 'renderTimesView',
     'submit #addJob': 'renderIndexView',
     'submit #addClient': 'renderAddView'
   },
@@ -38,12 +38,12 @@ window.Lancealot = Backbone.View.extend({
 
   renderIndexView: function(e) {
     e && e.preventDefault();
-    this.router.navigate('/', { trigger: true });
+    this.router.navigate('/home', { trigger: true });
   },
 
   renderClientsView: function(e) {
     e && e.preventDefault();
-    this.router.navigate('/clients', { trigger: true });
+    this.router.navigate('/clientslist', { trigger: true });
   },
 
   renderClientEntryView: function(e) {
@@ -60,7 +60,7 @@ window.Lancealot = Backbone.View.extend({
   renderTimesView: function(e) {
     console.log('rendering')
     e && e.preventDefault();
-    this.router.navigate('/times', { trigger: true });
+    this.router.navigate('/productivity', { trigger: true });
   }
 
 });

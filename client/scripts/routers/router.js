@@ -13,11 +13,11 @@ Lancealot.Router = Backbone.Router.extend({
   },
 
   routes: {
-    '': 'index',
+    'home': 'index',
     'addjob': 'addJob',
     'addclient': 'addClient',
-    'clients': 'showClients',
-    'times': 'showTimes'
+    'clientslist': 'showClients',
+    'productivity': 'showTimes'
   },
 
   swapView: function(view){
