@@ -15,8 +15,8 @@
   </head>
 
   <body>
-    <div id="container">
-      <div id="signup" class="ui piled segment">
+      <div id="signup" class="ui two column middle aligned piled segment grid">
+        <div class="column">
         <form class="ui form" action="/signup" method="post">
             <div class="field">
               <label for="email">Email:</label>
@@ -33,13 +33,34 @@
             </div>
             <div class="inline field"></div>
         </form>
-
-        <p>
+        </div>
+        <div class="ui vertical divider">WHY?</div>
+        <div class="center aligned column">
+          <p class="ui large green header branding">
+            Lance-a-lot to the rescue!
+          </p>
+          <ul>
+            <li>
+              <i class="users icon"></i>
+              Track client information
+            </li>
+            <li>
+              <i class="file text outline icon"></i>
+              Track job details
+            </li>
+            <li>
+              <i class="line chart icon"></i>
+              Track times and productivity
+            </li>
+          </ul>
+          <p>Don't take our word for it, try it yourself!</p>
+          <br>
+        <p class="ui blue button">
           <a href="/login">Login to your account &rarr;</a>
         <p>
+          </div>
       </div>
 
-    </div>
     <script>
     //Form Validation
     $('.ui.form')

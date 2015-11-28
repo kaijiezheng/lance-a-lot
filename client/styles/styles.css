@@ -38,9 +38,14 @@ General page layout
   /*padding-left: 20px;*/
 }
 
-/*div {
-  text-align: center !important;
-}*/
+body {
+  background-color: #f2f0f0;
+  font: 'Quicksand', sans-serif;
+}
+
+.ui.large.green.header.branding {
+  font: 'Quicksand', sans-serif;
+}
 
 .header {
   margin-bottom: 30px;
@@ -52,16 +57,25 @@ General page layout
   margin: 5% 15%;
 }
 
-/*.col-md-8 {
-  width: 100%;
-}*/
+li {
+  list-style: none;
+  text-align: left;
+  line-height: 30px;
+}
 
+a {
+  color: white;
+}
+
+a:hover {
+  color:white;
+}
 /*
 Forms, inputs, and tables
 */
 #login, #signup {
   max-width: 100%;
-  margin: 5% auto;
+  margin-left: 15%;
 }
 
 .ui.piled.segment {
@@ -118,6 +132,7 @@ label {
 #no_client {
   font-size: 15px;
 }
+
 
 /****** GRAPH ******/
 .bar {

@@ -15,7 +15,7 @@ window.Lancealot = Backbone.View.extend({
   template: Templates['layout'],
 
   events: {
-    'click a.index':  'renderIndexView',
+    'click a.home':  'renderIndexView',
     'click a.logout': 'renderAddView',
     'click a.clients': 'renderClientsView',
     'click a.addClient': 'renderClientEntryView',

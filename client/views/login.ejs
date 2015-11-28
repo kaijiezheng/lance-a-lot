@@ -15,8 +15,8 @@
   </head>
 
   <body>
-    <!-- <div class="ui grid container"> -->
-      <div id="login" class="ui piled segment">        
+    <div id="login" class="ui two column middle aligned piled segment grid">    
+      <div class="column">
         <form class="ui form" action="/login" method="post">
             <div class="field">
               <label for="email">Email:</label>
@@ -34,11 +34,25 @@
             <div class="inline field"></div>
         </form>
 
-        <p>
+        
+      </div>    
+       
+        <div class="ui vertical divider">OR</div>
+
+      <div class="center aligned column">
+        <div>
+          <h2 class="ui green header">
+            Need help organizing?
+          </h2>
+        </div>
+        <br>
+        <br>
+        <div class="ui green labeled icon button">
+          <i class="edit icon"></i>
           <a href="/signup">Sign up for a new account &rarr;</a>
-        <p>
+        </div>
       </div>
-    <!-- </div> -->
+  </div>
 
     <script>
     // Form Validation
