@@ -58,6 +58,8 @@ Lancealot.JobView = Backbone.View.extend({
     var checked = e.target.checked;
     var client = this.model.attributes.client.name;
     this.model.save({status: checked});
+    //hide job from view once completed
+    this.$el.toggleClass('hidden');
   },
 
   startTime: 0,
@@ -73,30 +75,30 @@ Lancealot.JobView = Backbone.View.extend({
     var jobID = this.model.id;
     var started; 
     if (this.model.get('timer')) {
-     started = moment().format('YYYY-MM-DD HH:mm:ss');
-     this.storeStartTime = started;
-     var time = new Lancealot.Time({
-     start: started,
-     job_id: jobID
+      started = moment().format('YYYY-MM-DD HH:mm:ss');
+      this.storeStartTime = started;
+      var time = new Lancealot.Time({
+      start: started,
+      job_id: jobID
     });
 
     time.save({});
     } else {
-      console.log('Should be false: ', this.model.get('timer'));
-      console.log(this.model.attributes);
-      e.preventDefault();
-      var stopTime = moment().format('YYYY-MM-DD HH:mm:ss');
-      console.log('This is the ID:', this.model.id);
+        console.log('Should be false: ', this.model.get('timer'));
+        console.log(this.model.attributes);
+        e.preventDefault();
+        var stopTime = moment().format('YYYY-MM-DD HH:mm:ss');
+        console.log('This is the ID:', this.model.id);
+      
+        var time = new Lancealot.Time({
+          start: this.storeStartTime,
+          stop: stopTime,
+          job_id: jobID
+        });
     
-      var time = new Lancealot.Time({
-      start: this.storeStartTime,
-      stop: stopTime,
-      job_id: jobID
-    });
-    
-    time.save({});
-    console.log(stopTime);
- }
+        time.save({});
+        console.log(stopTime);
+      }
 
   },
 
@@ -104,9 +106,11 @@ Lancealot.JobView = Backbone.View.extend({
     if (this.model.get('timer')) {
       this.$('.start').attr('value', 'Stop');
       this.$('.start').attr('class', 'stop');
+      this.$('#status').attr('disabled', 'disabled');
     } else {
       this.$('.start').attr('value', 'Start');
       this.$('.start').attr('class', 'start');
+      this.$('#status').removeAttr('disabled','disabled');
     }
   },
 
@@ -129,7 +133,7 @@ Lancealot.JobView = Backbone.View.extend({
   
   stop: function() {
     console.log("stopped");
-    if (this.model.get('timer')){
+    if (this.model.get('timer')) {
       this.model.set('timer', false);
       clearInterval(this.timeIt);
       var added = (this.totalTime || 0);

@@ -132,9 +132,12 @@ label {
   font-size: 15px;
 }
 
-
 .start, .stop {
   border-radius: 5px;
+}
+
+.hidden {
+  display: none;
 }
 
 /****** GRAPH ******/
