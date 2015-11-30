@@ -15,11 +15,11 @@ window.Lancealot = Backbone.View.extend({
   template: Templates['layout'],
 
   events: {
-    'click a.home':  'renderIndexView',
-    'click a.logout': 'renderAddView',
-    'click a.clients': 'renderClientsView',
-    'click a.addClient': 'renderClientEntryView',
-    'click a.productivity': 'renderTimesView',
+    // 'click a #home':  'renderIndexView',
+    // 'click a #logout': 'renderAddView',
+    // 'click a #clients': 'renderClientsView',
+    // 'click a #addClient': 'renderClientEntryView',
+    // 'click a #productivity': 'renderTimesView',
     'submit #addJob': 'renderIndexView',
     'submit #addClient': 'renderAddView'
   },
@@ -28,7 +28,26 @@ window.Lancealot = Backbone.View.extend({
     $("#container").append(this.render().el);
 
     this.router = new Lancealot.Router({ el: this.$el.find('#container') });
+    
     Backbone.history.start({ pushState: true });
+    
+    //Prevents refresh of page when a link is clicked
+    $(document).on("click", "a:not([data-bypass])", function(evt) {
+      var href = { prop: $(this).prop("href"), attr: $(this).attr("href") };
+      var root = location.protocol + "//" + location.host + Backbone.history.options.root;
+
+      if (href.prop && href.prop.slice(0, root.length) === root) {
+        evt.preventDefault();
+        Backbone.history.navigate(href.attr, true);
+      }
+    });
+
+    //Highlights current active tab
+      $('.item').click(function(){
+        $('.active').removeClass('active');
+         $(this).addClass('active');
+      });
+
   },
 
   render: function(){
@@ -37,29 +56,27 @@ window.Lancealot = Backbone.View.extend({
   },
 
   renderIndexView: function(e) {
-    e && e.preventDefault();
-    this.router.navigate('/home', { trigger: true });
+    // e && e.preventDefault();
+    this.router.navigate('/jobslist', { trigger: true });
   },
 
   renderClientsView: function(e) {
-    e && e.preventDefault();
+    // e && e.preventDefault();
     this.router.navigate('/clientslist', { trigger: true });
   },
 
   renderClientEntryView: function(e) {
-    e && e.preventDefault();
+    // e && e.preventDefault();
     this.router.navigate('/addclient', { trigger: true });
   },
 
   renderAddView: function(e) {
-    console.log('renderadd view')
-    e && e.preventDefault();
+    // e && e.preventDefault();
     this.router.navigate('/addjob', { trigger: true });
   },
 
   renderTimesView: function(e) {
-    console.log('rendering')
-    e && e.preventDefault();
+    // e && e.preventDefault();
     this.router.navigate('/productivity', { trigger: true });
   }
 
