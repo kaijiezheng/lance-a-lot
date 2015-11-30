@@ -89,7 +89,7 @@ Forms, inputs, and tables
 .table {
   float: none !important;
   margin: 20px auto !important;
-  width: 50%;
+  width: 70%;
 }
 
 .table th {
@@ -115,6 +115,15 @@ form {
   text-align: left;
 }
 
+.timer {
+  padding: 10px;
+  margin: 0px;
+}
+
+.time_button {
+  border-radius: 5px;
+}
+
 label {
   color: #30312e;
 }
@@ -123,6 +132,10 @@ label {
   font-size: 15px;
 }
 
+
+.start, .stop {
+  border-radius: 5px;
+}
 
 /****** GRAPH ******/
 .bar {
@@ -146,3 +159,6 @@ svg {
   padding: 0px 15px 20px 15px;
 }
 
+.stop {
+  content: "Stop";
+}

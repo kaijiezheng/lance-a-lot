@@ -45,7 +45,11 @@ Lancealot.JobEntryView = Backbone.View.extend({
       rate: rate,
       start: start,
       end: end,
-      status: false
+      status: false,
+      currentTimer: 0,
+      elapsedTime: 0,
+      timer: false,
+      displayTotal: 0
     });
 
     job.save({});
