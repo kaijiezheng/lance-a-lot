@@ -19,6 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', __dirname + '/../client/views');
 app.set('view engine', 'ejs');
 app.use(partials());
+
+// Parse JSON (uniform resource locators)
+app.use(bodyParser.json());
+// Parse forms (signup/login)
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static(__dirname + '/../client'));
 app.use(session({
   secret: 'nyan cat',
@@ -31,13 +37,13 @@ app.get('/', util.checkUser, renderIndex);
 app.post('', handle.addTime);
 app.put('', handle.addTime);
 
-app.get('/clients', handle.fetchClients);
+app.get('/clients', util.checkUser, handle.fetchClients);
 app.post('/clients', handle.addClient);
 
-app.get('/jobs', handle.fetchJobs);
+app.get('/jobs', util.checkUser, handle.fetchJobs);
 app.post('/jobs', handle.addJob);
 
-app.get('/times', handle.fetchTimes);
+app.get('/times', util.checkUser, handle.fetchTimes);
 app.post('/times', handle.addTime);
 app.put('/times', handle.addTime);
 
@@ -73,11 +79,6 @@ app.get('/*', renderIndex);
 function renderIndex (req, res) {
   res.render('index');
 };
-
-// function splash (req, res, next) {
-//   res.render('splash');
-//   next();
-// };
 
 var port = process.env.PORT || 3000;
 
