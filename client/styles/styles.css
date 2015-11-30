@@ -6,25 +6,15 @@ Navbar
   font-family: 'Quicksand', sans-serif;
   font-size: 12px;
   position: relative;
-/*  float: left;*/
   margin-left: 10px;
   vertical-align: center;
   text-align: center;
 }
 
-#topbar {
-  max-height: 100px;
-  margin-bottom: 0px;
-}
-
-#sidebar {
-  /*margin-top: 80px;*/
-  /*padding-top: 20px;*/
-}
-
 .ui.inverted.menu .item {
   font-size: 1.2em;
   text-align: left;
+  font: 'Quicksand', sans-serif;
 }
 /*
 General page layout
@@ -35,12 +25,10 @@ General page layout
   font-size: 37px;
   text-align: center;
   margin: 0px;
-  /*padding-left: 20px;*/
 }
 
 body {
   background-color: #f2f0f0;
-  font: 'Quicksand', sans-serif;
 }
 
 .ui.large.green.header.branding {
@@ -63,16 +51,18 @@ li {
   line-height: 30px;
 }
 
-a {
+.button a {
   color: white;
 }
 
-a:hover {
+.button a:hover {
   color:white;
 }
+
 /*
 Forms, inputs, and tables
 */
+
 #login, #signup {
   max-width: 100%;
   margin-left: 15%;

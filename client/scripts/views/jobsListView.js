@@ -12,7 +12,7 @@ Lancealot.JobsListView = Backbone.View.extend({
 
   tagName: 'table',
   className: 'ui green table',
-
+  id: 'jobtable',
   template: Templates['tableheads'],
 
   initialize: function(){
