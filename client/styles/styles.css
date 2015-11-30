@@ -115,6 +115,15 @@ form {
   text-align: left;
 }
 
+.timer {
+  padding: 10px;
+  margin: 0px;
+}
+
+.time_button {
+  border-radius: 5px;
+}
+
 label {
   color: #30312e;
 }
@@ -123,6 +132,10 @@ label {
   font-size: 15px;
 }
 
+
+.start, .stop {
+  border-radius: 5px;
+}
 
 /****** GRAPH ******/
 .bar {
