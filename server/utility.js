@@ -9,8 +9,9 @@ exports.isLoggedIn = function(req, res) {
 };
 
 exports.checkUser = function(req, res, next) {
+  console.log('util.checkUser', exports.isLoggedIn(req));
   if (!exports.isLoggedIn(req)) {
-    res.render('splash');
+    res.redirect('/login');
   } else {
     next();
   }
