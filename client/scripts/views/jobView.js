@@ -60,7 +60,6 @@ Lancealot.JobView = Backbone.View.extend({
     this.model.save({status: checked});
   },
 
-  timer: false,
   startTime: 0,
   startDate: undefined,
   endDate: undefined,
@@ -73,7 +72,6 @@ Lancealot.JobView = Backbone.View.extend({
     e.preventDefault();
     var jobID = this.model.id;
     var started; 
-    console.log(this.timer);
     if (this.timer) {
      started = moment().format('YYYY-MM-DD HH:mm:ss');
      this.storeStartTime = started
