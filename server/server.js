@@ -28,6 +28,8 @@ app.use(session({
 
 //Request handlers for all routes in app
 app.get('/', util.checkUser, renderIndex);
+app.post('', handle.addTime);
+app.put('', handle.addTime);
 
 app.get('/clients', handle.fetchClients);
 app.post('/clients', handle.addClient);
@@ -37,6 +39,7 @@ app.post('/jobs', handle.addJob);
 
 app.get('/times', handle.fetchTimes);
 app.post('/times', handle.addTime);
+app.put('/times', handle.addTime);
 
 app.get('/login', util.renderLogin);
 app.post('/login', handle.loginUser);
