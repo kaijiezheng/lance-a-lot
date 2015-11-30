@@ -1,13 +1,17 @@
 // need to set this up for deployment
+var connectionSettings = {
+  host: 'localhost',
+  user: 'root',
+  password: 'pass',
+  database: 'lancealot',
+  charset: 'utf8'
+};
+
+var connection = process.env.JAWSDB_URL || connectionSettings;
+
 var knex = require('knex')({
   client: 'mysql',
-  connection: {
-    host: 'localhost',
-    user: 'root',
-    password: 'pass',
-    database: 'lancealot',
-    charset: 'utf8'
-  }
+  connection: connection
 });
 
 var bookshelf = require('bookshelf')(knex);
