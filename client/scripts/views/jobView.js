@@ -75,30 +75,30 @@ Lancealot.JobView = Backbone.View.extend({
     var jobID = this.model.id;
     var started; 
     if (this.model.get('timer')) {
-     started = moment().format('YYYY-MM-DD HH:mm:ss');
-     this.storeStartTime = started;
-     var time = new Lancealot.Time({
-     start: started,
-     job_id: jobID
+      started = moment().format('YYYY-MM-DD HH:mm:ss');
+      this.storeStartTime = started;
+      var time = new Lancealot.Time({
+      start: started,
+      job_id: jobID
     });
 
     time.save({});
     } else {
-      console.log('Should be false: ', this.model.get('timer'));
-      console.log(this.model.attributes);
-      e.preventDefault();
-      var stopTime = moment().format('YYYY-MM-DD HH:mm:ss');
-      console.log('This is the ID:', this.model.id);
+        console.log('Should be false: ', this.model.get('timer'));
+        console.log(this.model.attributes);
+        e.preventDefault();
+        var stopTime = moment().format('YYYY-MM-DD HH:mm:ss');
+        console.log('This is the ID:', this.model.id);
+      
+        var time = new Lancealot.Time({
+          start: this.storeStartTime,
+          stop: stopTime,
+          job_id: jobID
+        });
     
-      var time = new Lancealot.Time({
-      start: this.storeStartTime,
-      stop: stopTime,
-      job_id: jobID
-    });
-    
-    time.save({});
-    console.log(stopTime);
- }
+        time.save({});
+        console.log(stopTime);
+      }
 
   },
 
@@ -129,13 +129,11 @@ Lancealot.JobView = Backbone.View.extend({
       this.timeIt = window.setInterval(_.bind(this.incrementTimer, this), 1000);
       this.maintain();
     }
-     
-    
   },
   
   stop: function() {
     console.log("stopped");
-    if (this.model.get('timer')){
+    if (this.model.get('timer')) {
       this.model.set('timer', false);
       clearInterval(this.timeIt);
       var added = (this.totalTime || 0);
@@ -145,7 +143,6 @@ Lancealot.JobView = Backbone.View.extend({
       this.model.set('displayTotal', moment.duration((this.totalTime / 1000), 'seconds').humanize())
       this.maintain();
     }
-     
   }
 
 });
