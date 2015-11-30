@@ -165,9 +165,12 @@ exports.addTime = function (req, res) {
   .fetch()
   .then(function(time) {
     if (time) {
-      time.stop = req.body.stop;
+      console.log("This is time: ", time);
+      console.log(req.body.stop);
+      time.set('stop', req.body.stop);
       console.log('Updated stop time successfully');
-      res.status(200).send(time);
+      console.log("This is time after save: ", time);
+      res.status(200)//.send(time);
     } else {
       new Time({
         start: req.body.start,
@@ -176,7 +179,7 @@ exports.addTime = function (req, res) {
       .save()
       .then(function(time) {
         console.log('Saved time successfully');
-        res.status(200).send(time);
+        res.status(200)//.send(time);
       })
       .catch(function(err) {
         console.log('Error in saving new start time:', err.message);
@@ -204,7 +207,9 @@ exports.loginUser = function (req, res) {
   .fetch()
   .then(function(freelancer) {
     if (freelancer) {
+      console.log(freelancer);
       freelancer.comparePassword(password, function(match) {
+        console.log(match);
         if (match) {
           console.log('Passwords match');
           util.createSession(req, res, freelancer);
