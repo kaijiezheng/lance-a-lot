@@ -64,10 +64,13 @@ Finds all jobs in the database, replaces client_id with an object that include c
 Responds with result of query
 */
 exports.fetchJobs = function (req, res) {
-  new Job()
+  new Job({
+    freelancer_id: req.session.user.id
+  })
   .fetchAll({
     withRelated: [
-      'client'
+      'client',
+      'time'
     ]
   })
   .then(function(jobs) {
