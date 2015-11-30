@@ -1,6 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var util = require('./utility');
 var request = require('request');
+var moment = require('moment');
 
 var Freelancer = require('./db/models/freelancer');
 var Freelancers = require('./db/collections/freelancers');
@@ -165,12 +166,13 @@ exports.addTime = function (req, res) {
   .fetch()
   .then(function(time) {
     if (time) {
-      console.log("This is time: ", time);
-      console.log(req.body.stop);
+      var start = moment(time.get('start'));
+      var stop = moment(req.body.stop);
       time.set('stop', req.body.stop);
+      time.set('total', stop.diff(start, 'hours', true));
       time.save()
       .then(function(time) {
-        console.log('Updated stop time successfully');
+        console.log('Updated stop and total times successfully');
         console.log("This is time after save: ", time);
         res.status(200);
       })
