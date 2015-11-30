@@ -13,8 +13,15 @@ Lancealot.JobView = Backbone.View.extend({
 
   events: {
     'click input:checkbox': 'toggleComplete',
-    'click .start': 'start',
-    'click .stop': 'stop'
+    'click .start': function(e) {
+      this.start(e);
+      this.handleSubmit(e);
+    },
+    //'submit': 'handleSubmit',
+    'click .stop': function(e) {
+      this.stop(e);
+      this.handleSubmit(e);
+    },
   },
 
   template: Templates['job'],
@@ -58,44 +65,82 @@ Lancealot.JobView = Backbone.View.extend({
   startDate: undefined,
   endDate: undefined,
   elapsedTime: 0,
+  timeIt: undefined,
+  storeStartTime: undefined,
+  totalTime: undefined,
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var jobID = this.model.id;
+    var started; 
+    console.log(this.timer);
+    if (this.timer) {
+     started = moment().format('YYYY-MM-DD HH:mm:ss');
+     this.storeStartTime = started
+     var time = new Lancealot.Time({
+     start: started,
+     job_id: jobID
+    });
+
+    time.save({});
+    } else {
+      console.log('Should be false: ', this.timer);
+      console.log(this.model.attributes);
+      e.preventDefault();
+      var stopTime = moment().format('YYYY-MM-DD HH:mm:ss');
+      console.log('This is the ID:', this.model.id);
+    
+      var time = new Lancealot.Time({
+      start: this.storeStartTime,
+      stop: stopTime,
+      job_id: jobID
+    });
+    
+    time.save({});
+    console.log(stopTime);
+ }
+
+  },
 
   maintain: function() {
-    if (this.timer) {
-      this.$('.start').addClass('stop');
-      this.$('.start').text('Stop');
+    if (this.model.get('timer')) {
+      this.$('.start').attr('value', 'Stop');
+      this.$('.start').attr('class', 'stop');
     } else {
-      this.$('.start').removeClass('stop');
-      this.$('.start').text('Start');
-      //this.$('.totalTime').text(moment.duration(this.model.get('elapsedTime')).humanize());
+      this.$('.start').attr('value', 'Start');
+      this.$('.start').attr('class', 'start');
     }
   },
 
   //timer control
   incrementTimer: function() {
     this.elapsedTime = (Date.now() - this.startTime) / 1000;
-    time = moment.duration(this.model.get('elapsedTime'), 'seconds').humanize();
+    var time = moment.duration(this.elapsedTime, 'seconds').humanize();
     this.model.set("currentTimer", time);
     this.maintain();
   },
   
   start: function() {
-    if (!this.timer) {
-      this.timer = true;
-      this.startDate = (new Date).toDateString();
+    if (!this.model.get('timer')) {
+      this.model.set('timer', true);
       this.startTime = Date.now();
-      window.setInterval(_.bind(this.incrementTimer, this), 1000);
+      this.timeIt = window.setInterval(_.bind(this.incrementTimer, this), 1000);
       this.maintain();
     }
   },
   
   stop: function() {
-    this.timer = false;
-    this.endDate = (new Date).toDateString();
-    var totalLabor = this.model.get("laborTime");
-    this.model.set({laborTime: (totalLabor + (Date.now() - this.startTime))});
-    this.elapsedTime = 0;
-    console.log(this.model.get('laborTime'));
-    this.maintain();
+    console.log("stopped");
+    if (this.model.get('timer')){
+      this.model.set('timer', false);
+      clearInterval(this.timeIt);
+      var added = (this.totalTime || 0);
+      this.totalTime = (Date.now() - this.startTime) + added;
+      this.startTime = 0;
+      this.model.set('currentTimer', 0);
+      this.model.set('displayTotal', moment.duration((this.totalTime / 1000), 'seconds').humanize())
+      this.maintain();
+    }
   }
 
 });
