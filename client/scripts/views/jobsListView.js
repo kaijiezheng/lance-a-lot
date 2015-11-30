@@ -11,8 +11,8 @@ user is typing in the clientSearch filter.
 Lancealot.JobsListView = Backbone.View.extend({
 
   tagName: 'table',
-  className: 'table table-striped',
-
+  className: 'ui green table',
+  id: 'jobtable',
   template: Templates['tableheads'],
 
   initialize: function(){

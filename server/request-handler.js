@@ -242,7 +242,7 @@ exports.signupUser = function(req, res) {
   .fetch()
   .then(function(freelancer) {
     if (!freelancer) {
-      bcrypt.hash(this.get('password'), null, null, function(err, hash) {
+      bcrypt.hash(password, null, null, function(err, hash) {
         if (err) {
             throw new Error(err);
         } else {

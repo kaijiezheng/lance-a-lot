@@ -7,7 +7,8 @@ For templates, look at client/views/backbone_templates.
 Lancealot.ClientsListView = Backbone.View.extend({
 
   tagName: "table",
-  className: 'table table-striped',
+
+  className: 'ui striped green table',
 
   template: Templates['clienttable'],
 

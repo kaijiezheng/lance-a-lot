@@ -4,8 +4,8 @@
 For templates, look at client/views/backbone_templates.
 */
 Lancealot.TimesView = Backbone.View.extend({
+  // template: _.template('<div id="bargraph"></div>'),
   id: 'bargraph',
-  
   chart: null,
 
   margin: {
@@ -22,7 +22,6 @@ Lancealot.TimesView = Backbone.View.extend({
 
   initialize: function() {
     //this.collection.on('change', this.render, this);
-   
     //initialize SVG graph
     this.chart = d3.select(this.el) /*'#bargraph'*/ 
               .append("svg")

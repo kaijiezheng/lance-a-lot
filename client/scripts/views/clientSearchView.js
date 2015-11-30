@@ -6,9 +6,9 @@ For templates, look at client/views/backbone_templates.
 
 Lancealot.ClientSearchView = Backbone.View.extend({
 
-  tagName: 'form',
-
-  template: _.template('<label>Search by Client:</label><input id="clientSearch" type="text"/><br/>'),
+  // tagName: 'form',
+  className: 'ui form',
+  template: _.template('<form><div class="field"><label>Search by Client:</label><input id="clientSearch" class="ui input" type="text"/></div></form><br/>'),
 
   initialize: function() {
     this.render();

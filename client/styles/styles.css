@@ -2,53 +2,37 @@
 Navbar
 */
 
-.navbar {
-  background-color: #85e0e0;
-  font-weight: 700;
-  font-size: 20px;
-  font-family: 'Quicksand', sans-serif;
-  text-align: center;
-  margin-top: 20px;
-  border: none;
-}
-
-.navbar .navbar-nav {
-  display: inline-block;
-  float: none;
-  vertical-align: center;
-}
-
-.navbar .navbar-nav>li {
-  padding: 5px 15px;
-  margin: auto 15px;
-}
-
-.navbar-default .navbar-nav li a {
-  text-decoration: none;
-  color: white;
-}
-
 .tagline {
   font-family: 'Quicksand', sans-serif;
-  font-size: 20px;
+  font-size: 12px;
   position: relative;
-  float: left;
-  margin-left: 20px;
+  margin-left: 10px;
   vertical-align: center;
+  text-align: center;
 }
 
+.ui.inverted.menu .item {
+  font-size: 1.2em;
+  text-align: left;
+  font: 'Quicksand', sans-serif;
+}
 /*
 General page layout
 */
 
-h1 {
+#brand {
   font-family: 'Pacifico', cursive;
-  font-size: 40px;
-  padding-left: 20px;
+  font-size: 37px;
+  text-align: center;
+  margin: 0px;
 }
 
-div {
-  text-align: center !important;
+body {
+  background-color: #f2f0f0;
+}
+
+.ui.large.green.header.branding {
+  font: 'Quicksand', sans-serif;
 }
 
 .header {
@@ -57,16 +41,45 @@ div {
 
 #container {
   text-align: center;
-  width: 100%;
+  width: 80%;
+  margin: 5% 15%;
 }
 
-.col-md-8 {
-  width: 100%;
+li {
+  list-style: none;
+  text-align: left;
+  line-height: 30px;
+}
+
+.button a {
+  color: white;
+}
+
+.button a:hover {
+  color:white;
 }
 
 /*
 Forms, inputs, and tables
 */
+
+#login, #signup {
+  max-width: 100%;
+  margin-left: 15%;
+}
+
+.ui.piled.segment {
+  padding: 20px 20px;
+}
+
+.ui.form {
+  margin: 20px 30px;
+  padding: 5px;
+}
+
+.ui.form .field > label {
+  font-size: 1.2em;
+}
 
 #clientSearch {
   width: 40%;
@@ -109,6 +122,7 @@ label {
 #no_client {
   font-size: 15px;
 }
+
 
 /****** GRAPH ******/
 .bar {

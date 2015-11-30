@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>Lance-a-lot</title>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/semantic/dist/semantic.css">
     <link rel="stylesheet" href="styles/styles.css">
     <!-- dependencies -->
@@ -16,30 +15,44 @@
   </head>
 
   <body>
-    <div id="container">
-      <div class="container">        
+    <div id="login" class="ui two column middle aligned piled segment grid">    
+      <div class="column">
         <form class="ui form" action="/login" method="post">
             <div class="field">
               <label for="email">Email:</label>
-              <input class="ui input" id="email" type="text" name="email" placeholder="freelancer@lancealot.com">
+              <input class="ui medium input" id="email" type="text" name="email" placeholder="freelancer@lancealot.com">
             </div>
             <div class="field">
               <br>
               <label for="password">Password:</label>
-              <input class="ui input"id="password" type="password" name="password" placeholder="password">
+              <input class="ui medium input"id="password" type="password" name="password" placeholder="password">
             </div>
             <div>
               <br>
-              <input class="ui large button" type="submit" value="Login">
+              <input class="ui fluid large blue submit button" type="submit" value="Login">
             </div>
             <div class="inline field"></div>
         </form>
 
-        <p>
+        
+      </div>    
+       
+        <div class="ui vertical divider">OR</div>
+
+      <div class="center aligned column">
+        <div>
+          <h2 class="ui green header">
+            Need help organizing?
+          </h2>
+        </div>
+        <br>
+        <br>
+        <div class="ui green labeled icon button">
+          <i class="edit icon"></i>
           <a href="/signup">Sign up for a new account &rarr;</a>
-        <p>
+        </div>
       </div>
-    </div>
+  </div>
 
     <script>
     // Form Validation
