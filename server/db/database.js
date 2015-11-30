@@ -70,6 +70,7 @@ bookshelf.knex.schema.hasTable('times').then(function(exists) {
       time.increments('id').primary();
       time.dateTime('start', 255);
       time.dateTime('stop', 255);
+      time.decimal('total');
       time.integer('job_id').unsigned().references('jobs.id');
       time.timestamps();
     }).then(function (table) {
