@@ -168,9 +168,15 @@ exports.addTime = function (req, res) {
       console.log("This is time: ", time);
       console.log(req.body.stop);
       time.set('stop', req.body.stop);
-      console.log('Updated stop time successfully');
-      console.log("This is time after save: ", time);
-      res.status(200)//.send(time);
+      time.save()
+      .then(function(time) {
+        console.log('Updated stop time successfully');
+        console.log("This is time after save: ", time);
+        res.status(200);
+      })
+      .catch(function(err) {
+        console.log('Error in saving stop time:', err.message);
+      });
     } else {
       new Time({
         start: req.body.start,
