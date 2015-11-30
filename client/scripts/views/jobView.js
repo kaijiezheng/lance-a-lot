@@ -72,9 +72,9 @@ Lancealot.JobView = Backbone.View.extend({
     e.preventDefault();
     var jobID = this.model.id;
     var started; 
-    if (this.timer) {
+    if (this.model.get('timer')) {
      started = moment().format('YYYY-MM-DD HH:mm:ss');
-     this.storeStartTime = started
+     this.storeStartTime = started;
      var time = new Lancealot.Time({
      start: started,
      job_id: jobID
@@ -82,7 +82,7 @@ Lancealot.JobView = Backbone.View.extend({
 
     time.save({});
     } else {
-      console.log('Should be false: ', this.timer);
+      console.log('Should be false: ', this.model.get('timer'));
       console.log(this.model.attributes);
       e.preventDefault();
       var stopTime = moment().format('YYYY-MM-DD HH:mm:ss');
