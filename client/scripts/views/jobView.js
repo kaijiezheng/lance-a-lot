@@ -58,6 +58,8 @@ Lancealot.JobView = Backbone.View.extend({
     var checked = e.target.checked;
     var client = this.model.attributes.client.name;
     this.model.save({status: checked});
+    //hide job from view once completed
+    this.$el.toggleClass('hidden');
   },
 
   startTime: 0,
@@ -104,9 +106,11 @@ Lancealot.JobView = Backbone.View.extend({
     if (this.model.get('timer')) {
       this.$('.start').attr('value', 'Stop');
       this.$('.start').attr('class', 'stop');
+      this.$('#status').attr('disabled', 'disabled');
     } else {
       this.$('.start').attr('value', 'Start');
       this.$('.start').attr('class', 'start');
+      this.$('#status').removeAttr('disabled','disabled');
     }
   },
 
@@ -125,6 +129,8 @@ Lancealot.JobView = Backbone.View.extend({
       this.timeIt = window.setInterval(_.bind(this.incrementTimer, this), 1000);
       this.maintain();
     }
+     
+    
   },
   
   stop: function() {
@@ -139,6 +145,7 @@ Lancealot.JobView = Backbone.View.extend({
       this.model.set('displayTotal', moment.duration((this.totalTime / 1000), 'seconds').humanize())
       this.maintain();
     }
+     
   }
 
 });

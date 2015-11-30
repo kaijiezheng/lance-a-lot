@@ -35,6 +35,9 @@ Lancealot.TimesView = Backbone.View.extend({
   },
 
   render: function() {
+
+    //array of objects
+      //parse start time for date
     var timeData = 
     [ {"start":"6:57 AM","end":"4:43 PM","date":"11/7/2015", "total": "1"},
     {"start":"8:05 PM","end":"3:39 PM","date":"11/7/2015", "total": "2.5"},
