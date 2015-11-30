@@ -7,7 +7,7 @@
     "node": "4.2.2"
   },
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "node-inspector & nodemon --debug server/server.js",
     "postinstall": "bower install"
   },
   "repository": {
