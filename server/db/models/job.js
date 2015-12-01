@@ -12,7 +12,7 @@ var Job = bookshelf.Model.extend({
   client: function() {
     return this.belongsTo('Client');
   },
-  time: function() {
+  times: function() {
     return this.hasMany('Time');
   }
 });
