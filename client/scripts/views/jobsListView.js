@@ -16,6 +16,7 @@ Lancealot.JobsListView = Backbone.View.extend({
   template: Templates['tableheads'],
 
   initialize: function(){
+
     this.collection.on('sync', this.addAll, this);
     this.collection.fetch();
   },
@@ -32,6 +33,7 @@ Lancealot.JobsListView = Backbone.View.extend({
   },
 
   addAll: function(){
+    console.log('job coll', this.collection)
     this.collection.forEach(this.addOne, this);
   },
 
