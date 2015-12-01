@@ -4,7 +4,7 @@ var Job = require('./job');
 var Client = bookshelf.Model.extend({
   tableName: 'clients',
   hasTimestamps: true,
-  job: function() {
+  jobs: function() {
     return this.hasMany('Job');
   }
 });

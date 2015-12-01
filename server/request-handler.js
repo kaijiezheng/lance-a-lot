@@ -14,6 +14,7 @@ fetchClients is called when /clients path receives get request
 Finds all clients in the database and responds with result of query
 */
 exports.fetchClients = function(req, res) {
+  // need to add freelancer_id to client schema if we want user-specific clients
   new Client()
   .fetchAll()
   .then(function(clients) {
@@ -64,13 +65,15 @@ Finds all jobs in the database, replaces client_id with an object that include c
 Responds with result of query
 */
 exports.fetchJobs = function (req, res) {
-  new Job({
-    freelancer_id: req.session.user.id
+  Job.query({
+    where: {
+      freelancer_id: req.session.user.id
+    }
   })
   .fetchAll({
     withRelated: [
       'client',
-      'time'
+      'times'
     ]
   })
   .then(function(jobs) {
@@ -143,12 +146,14 @@ exports.addJob = function (req, res) {
 
 // Add documentation
 exports.fetchTimes = function (req, res) {
-  new Job({
-    freelancer_id: req.session.user.id
+  Job.query({
+    where: {
+      freelancer_id: req.session.user.id
+    }
   })
   .fetchAll({
     withRelated: [
-      'time'
+      'times'
     ]
   })
   .then(function(jobs) {
