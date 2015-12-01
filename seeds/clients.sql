@@ -1,0 +1,10 @@
+insert into clients (id, name, address, phone) values (1, 'Trudeo', '54478 Shoshone Trail', '351-(218)360-0367');
+insert into clients (id, name, address, phone) values (2, 'Chatterbridge', '7 Anderson Plaza', '673-(170)634-5131');
+insert into clients (id, name, address, phone) values (3, 'Fivebridge', '5 Walton Parkway', '62-(615)454-4356');
+insert into clients (id, name, address, phone) values (4, 'Zoonder', '9634 Morrow Court', '62-(606)941-1990');
+insert into clients (id, name, address, phone) values (5, 'Edgeblab', '62 5th Hill', '86-(319)143-6453');
+insert into clients (id, name, address, phone) values (6, 'Linktype', '99211 Pawling Point', '53-(349)376-8180');
+insert into clients (id, name, address, phone) values (7, 'Jaloo', '0 Forest Dale Trail', '236-(907)758-9616');
+insert into clients (id, name, address, phone) values (8, 'Photobug', '5537 Knutson Lane', '63-(220)201-6620');
+insert into clients (id, name, address, phone) values (9, 'Pixoboo', '108 Hermina Parkway', '590-(579)439-6828');
+insert into clients (id, name, address, phone) values (10, 'Skiptube', '71473 Hauk Center', '62-(226)137-1864');
