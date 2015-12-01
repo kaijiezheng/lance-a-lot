@@ -41,7 +41,7 @@ Lancealot.TimesView = Backbone.View.extend({
     //iterate over collection to grab the time (attribute) array on each model
     //the time array holds objects of the start/end times of each timeblock for that particular job
     this.collection.forEach(function(mod) {
-      mod.attributes.time.forEach(function(timeblock) {
+      mod.attributes.times.forEach(function(timeblock) {
         var timeObj = {}
         timeObj["total"] = timeblock.total;
         timeObj["date"] = moment(timeblock.start).format("MM-DD-YYYY");
@@ -67,6 +67,10 @@ Lancealot.TimesView = Backbone.View.extend({
     for(var key in totalsByDay) {
         graphData.push({date: key, total: totalsByDay[key]})
     }
+
+    graphData.sort(function(a, b) {
+      return b.date < a.date;
+    });
 
     //Set up scales and axes for graph
     var x = d3.time.scale()
@@ -97,7 +101,7 @@ Lancealot.TimesView = Backbone.View.extend({
       .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", function(d, i) { return (i * 100) + 15 })
+      .attr("x", function(d, i) { return (i * that.chartOptions.width/7) + 15 })
       .attr("y", function(d) { return y(d.total) })
       .attr("width", 85)
       .attr("height", function(d) { return that.chartOptions.height - y(d.total) }) /*total time*/ 
