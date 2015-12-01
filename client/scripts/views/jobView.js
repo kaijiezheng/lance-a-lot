@@ -105,11 +105,11 @@ Lancealot.JobView = Backbone.View.extend({
   maintain: function() {
     if (this.model.get('timer')) {
       this.$('.start').attr('value', 'Stop');
-      this.$('.start').attr('class', 'stop');
+      this.$('.start').attr('class', 'stop ui button green');
       this.$('#status').attr('disabled', 'disabled');
     } else {
       this.$('.start').attr('value', 'Start');
-      this.$('.start').attr('class', 'start');
+      this.$('.start').attr('class', 'start ui button green');
       this.$('#status').removeAttr('disabled','disabled');
     }
   },
