@@ -1,4 +1,4 @@
-insert into clients (id, name, address, phone) values (1, 'Trudeo', '54478 Shoshone Trail', '351-(218)360-0367');
+insert into clients (id, name, address, phone) values (1, 'Hack Reactor', '54478 Shoshone Trail', '351-(218)360-0367');
 insert into clients (id, name, address, phone) values (2, 'Chatterbridge', '7 Anderson Plaza', '673-(170)634-5131');
 insert into clients (id, name, address, phone) values (3, 'Fivebridge', '5 Walton Parkway', '62-(615)454-4356');
 insert into clients (id, name, address, phone) values (4, 'Zoonder', '9634 Morrow Court', '62-(606)941-1990');
